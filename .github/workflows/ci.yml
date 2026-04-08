@@ -32,6 +32,6 @@ jobs:
         run: |
           kubectl apply -f deployment.yaml
           kubectl apply -f service.yaml
-      # verify pod
+      # verify pods
       - name: verify
         run: kubectl get pods
