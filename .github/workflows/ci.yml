@@ -36,7 +36,7 @@ jobs:
       
       - name: Use minikube Docker
         run: |
-          minikube docker-env --shell cmd | Invoke-Expression
+          minikube docker-env --shell powershell | Invoke-Expression
       - name: Build image
         run: docker build -t ci-cd-demo:latest .
 
