@@ -18,6 +18,7 @@ jobs:
       - name: Login Docker
         shell: cmd
         run: |
+          echo %DOCKER_PASSWORD% | find /c /v ""
           set /p PASS=%DOCKER_PASSWORD%
           set /p USERNAME=%DOCKER_USERNAME%
           echo %PASS% | docker login -u %USERNAME% --password-stdin
