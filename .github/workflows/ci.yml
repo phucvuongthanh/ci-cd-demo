@@ -11,5 +11,24 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      # Login Docker hub
+      - name: Login Docker
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      # Build image
       - name: Build Docker image
-        run: docker build -t ci-cd-demo .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/ci-cd-demo:latest .
+
+      # Docker push image
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/ci-cd-demo:latest
+      
+      # Setup Kubectl
+      - name: Set up Kubectl
+        uses: azure/setup-kubectl@v3
+
+      # Deploy to kubernetes
+      - name: Deploy
+        run: |
+          kubectl apply -f deployment.yaml
+          kubectl apply -f service.yaml

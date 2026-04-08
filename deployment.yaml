@@ -14,7 +14,7 @@ spec:
     spec: 
       containers:
         - name: ci-cd-demo
-          image: ci-cd-demo
-          imagePullPolicy: Never
+          image: phucvuong159/ci-cd-demo:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
