@@ -21,7 +21,7 @@ jobs:
           echo %DOCKER_PASSWORD% | find /c /v ""
           set /p PASS=%DOCKER_PASSWORD%
           set /p USERNAME=%DOCKER_USERNAME%
-          echo %PASS% | docker login -u %USERNAME% --password-stdin
+          echo %PASS% | docker login -u phucvuong159 --password-stdin
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
