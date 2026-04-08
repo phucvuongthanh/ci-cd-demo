@@ -14,26 +14,32 @@ jobs:
       - name: Debug user name
         run: echo "Username ${{ secrets.DOCKER_USERNAME }}"
 
-      # Login Docker hub
-      - name: Login Docker
-        shell: cmd
-        run: |
-          echo %DOCKER_PASSWORD% | find /c /v ""
-          set /p PASS=%DOCKER_PASSWORD%
-          set /p USERNAME=%DOCKER_USERNAME%
-          echo %PASS% | docker login -u phucvuong159 --password-stdin
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      # # Login Docker hub
+      # - name: Login Docker
+      #   shell: cmd
+      #   run: |
+      #     echo %DOCKER_PASSWORD% | find /c /v ""
+      #     set /p PASS=%DOCKER_PASSWORD%
+      #     set /p USERNAME=%DOCKER_USERNAME%
+      #     echo %PASS% | docker login -u phucvuong159 --password-stdin
+      #   env:
+      #     DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      #     DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Build image
-      - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/ci-cd-demo:latest .
+      # # Build image
+      # - name: Build Docker image
+      #   run: docker build -t ${{ secrets.DOCKER_USERNAME }}/ci-cd-demo:latest .
 
-      # Docker push image
-      - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/ci-cd-demo:latest
+      # # Docker push image
+      # - name: Push Docker image
+      #   run: docker push ${{ secrets.DOCKER_USERNAME }}/ci-cd-demo:latest
       
+      - name: Use minikube Docker
+        run: |
+          minikube docker-env --shell cmd | Invoke-Expression
+      - name: Build image
+        run: docker build -t ci-cd-demo:latest .
+
       # Setup Kubectl
       - name: Set up Kubectl
         uses: azure/setup-kubectl@v3
