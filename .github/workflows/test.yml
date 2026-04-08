@@ -1,0 +1,10 @@
+name: Test self-hosted
+
+on: [push]
+
+jobs:
+  test:
+    run-on: self-hosted
+    
+    steps:
+      - run: echo "Hello from local machine"
